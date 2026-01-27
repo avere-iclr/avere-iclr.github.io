@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="AVERE: Improving Audiovisual Emotion Reasoning with Preference Optimization">
+  <meta name="keywords" content="AVERE, Multimodal LLM, Emotion Recognition, Audiovisual Reasoning, ICLR 2026">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AVERE: Improving Audiovisual Emotion Reasoning with Preference Optimization</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <!-- Bulma + icons -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<!-- Top Image / Logo -->
+<section class="section has-text-centered" style="padding-top: 1rem; padding-bottom: 0; margin-bottom: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <!-- Replace with your AVERE logo -->
+        <img src="static/images/avere_logo_cropped.png"
+             alt="AVERE Logo"
+             style="max-width: 100%; height: auto;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Title + Authors + Links -->
+<section class="hero" style="padding-top: 0; margin-top: 0;">
+  <div class="hero-body" style="padding-top: 0;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <h1 class="title is-1 publication-title">
+            AVERE: Improving Audiovisual Emotion Reasoning with Preference Optimization
+          </h1>
+
+          <div class="is-size-4 publication-venue" style="margin-bottom: 1rem; text-align: center; width: 100%;">
+            <span style="color: #ff3860; font-weight: bold;">ICLR 2026</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ashutoshchaubey.in/">Ashutosh Chaubey,</a>
+            </span>
+            <span class="author-block">
+              <a href="https://jiachengpang.github.io/">Jiacheng Pang,</a>
+            </span>
+            <span class="author-block">
+              <a href="https://cv.maxi.su/">Maksim Siniukov,</a>
+            </span>
+            <span class="author-block">
+              <a href="https://www.ihp-lab.org/">Mohammad Soleymani</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Southern California</span>
+          </div>
+
+          <!-- Links row -->
+          <div class="column has-text-centered" style="margin-top: 1rem;">
+            <div class="publication-links">
+
+              <!-- OpenReview -->
+              <span class="link-block">
+                <a href="https://openreview.net/forum?id=td682AAuPr"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="ai ai-open-access"></i>
+                  </span>
+                  <span>OpenReview</span>
+                </a>
+              </span>
+
+              <!-- PDF (OpenReview) -->
+              <span class="link-block">
+                <a href="https://openreview.net/pdf?id=td682AAuPr"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>PDF</span>
+                </a>
+              </span>
+
+              <!-- Code (Coming soon) -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-light" disabled>
+                  <span class="icon">
+                    <i class="fas fa-code"></i>
+                  </span>
+                  <span>Code &mdash; Coming Soon</span>
+                </a>
+              </span>
+
+              <!-- Data (Coming soon) -->
+              <span class="link-block">
+                <a class="external-link button is-normal is-rounded is-light" disabled>
+                  <span class="icon">
+                    <i class="fas fa-database"></i>
+                  </span>
+                  <span>Data &mdash; Coming Soon</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Short Teaser / One-liner -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- Optional teaser image -->
+      <img src="static/images/emo_realm_bench.png"
+           alt="AVERE Teaser"
+           style="max-width: 100%; height: auto;">
+      <p style="margin-top: 1rem;">
+        AVERE introduces <b>EmoReAlM</b>, a benchmark for audiovisual emotion reasoning, and
+        <b>AVEm-DPO</b>, a preference optimization framework that aligns multimodal large language
+        models with <i>emotion-centric</i> audiovisual cues, reducing spurious correlations and
+        hallucinated content.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract (shortened, “coming soon” style) -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract (Preview)</h2>
+        <div class="content has-text-justified">
+          <p>
+            Emotion understanding is essential for building socially intelligent agents.
+            Although recent multimodal large language models show promising results,
+            they often rely on <i>spurious audiovisual cues</i> or <i>text-driven hallucinations</i>.
+            AVERE tackles these challenges by:
+          </p>
+          <ul>
+            <li><b>EmoReAlM</b>: a benchmark evaluating cue–emotion associations,
+              hallucinations, and modality agreement;</li>
+            <li><b>AVEm-DPO</b>: a preference optimization method aligning model responses with
+              relevant audiovisual evidence and emotion-focused prompts.</li>
+          </ul>
+          <p>
+            Full results, implementation details, and benchmark release are
+            <b>coming soon</b>. Stay tuned!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Coming Soon / Timeline Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-two-thirds has-text-centered">
+        <h2 class="title is-3">Project Resources</h2>
+        <div class="content">
+          <p>
+            We are actively preparing the <b>codebase</b>, <b>benchmark release</b>,
+            and <b>detailed documentation</b> for AVERE.
+          </p>
+          <p>
+            Expected releases:
+          </p>
+          <ul style="text-align: left;">
+            <li><b>Code</b>: training &amp; evaluation for AVEm-DPO on audiovisual emotion datasets.</li>
+            <li><b>Benchmark</b>: EmoReAlM QA pairs, and evaluation scripts.</li>
+            <li><b>Model checkpoints</b>: AVEm-DPO tuned MLLM.</li>
+          </ul>
+          <p>
+            For updates, please check this page periodically.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact / Footer -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-two-thirds has-text-centered">
+        <h2 class="title is-3">Contact</h2>
+        <div class="content">
+          <p>
+            For questions about AVERE, EmoReAlM, or potential collaborations, please contact:
+          </p>
+          <p>
+            <b>Ashutosh Chaubey</b> &mdash;
+            <a href="mailto:achaubey@usc.edu">achaubey@usc.edu</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            Website adapted from
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+            and <a href="https://face-llava.github.io/">Face-LLaVA</a> project pages.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
