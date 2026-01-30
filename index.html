@@ -34,6 +34,12 @@
     .leaderboard-card { padding: 0; background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04); overflow: hidden; border: 1px solid #e8eaed; }
     .leaderboard-table { width: 100%; margin: 0; border-collapse: collapse; font-size: 0.875rem; table-layout: fixed; }
     .leaderboard-table th { background: #f8f9fa; padding: 0.75rem 0.85rem; font-weight: 700; color: #3c4043; border: none; border-bottom: 2px solid #e8eaed; white-space: nowrap; font-size: 0.95rem; letter-spacing: 0.02em; }
+    .leaderboard-sort-controls { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; background: #f8f9fa; border-bottom: 1px solid #e8eaed; flex-wrap: wrap; }
+    .leaderboard-sort-controls label { font-size: 0.9rem; font-weight: 600; color: #3c4043; }
+    .leaderboard-sort-controls select { padding: 0.4rem 0.6rem; font-size: 0.9rem; border: 1px solid #dadce0; border-radius: 6px; background: #fff; color: #202124; cursor: pointer; }
+    .leaderboard-sort-controls select:focus { outline: none; border-color: #1a73e8; box-shadow: 0 0 0 2px rgba(26,115,232,0.2); }
+    .leaderboard-sort-controls .reset-btn { padding: 0.4rem 0.75rem; font-size: 0.9rem; font-weight: 600; color: #5f6368; background: #fff; border: 1px solid #dadce0; border-radius: 6px; cursor: pointer; }
+    .leaderboard-sort-controls .reset-btn:hover { background: #f8f9fa; border-color: #9aa0a6; color: #202124; }
     .leaderboard-table .model-cell { width: 22%; }
     .leaderboard-table th.num, .leaderboard-table td.num { width: 13%; }
     .leaderboard-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f3f4; vertical-align: middle; color: #202124; }
@@ -322,6 +328,25 @@
     <p class="has-text-centered" style="margin-bottom: 1.5rem;">Accuracy (%) on EmoReAlM. &uarr; Higher is better. Our models (AVEm-DPO) highlighted.</p>
     <div class="table-container">
       <div class="leaderboard-card">
+        <div class="leaderboard-sort-controls">
+          <label for="leaderboard-sort-by">Sort by:</label>
+          <select id="leaderboard-sort-by" aria-label="Sort table by column">
+            <option value="">—</option>
+            <option value="0">Model</option>
+            <option value="1">Reas. Basic (A)</option>
+            <option value="2">Reas. Basic (V)</option>
+            <option value="3">Mod. Agree.</option>
+            <option value="4">Stress (A)</option>
+            <option value="5">Stress (V)</option>
+            <option value="6">Avg. Acc.</option>
+          </select>
+          <label for="leaderboard-sort-dir">Order:</label>
+            <select id="leaderboard-sort-dir" aria-label="Sort order">
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+            <button type="button" class="reset-btn" id="leaderboard-sort-reset" aria-label="Reset to original order">Reset</button>
+          </div>
         <table class="leaderboard-table">
           <thead>
             <tr>
@@ -666,6 +691,96 @@
     </div>
   </div>
 </footer>
+
+<script>
+(function() {
+  var table = document.querySelector('.leaderboard-card .leaderboard-table');
+  if (!table) return;
+  var tbody = table.querySelector('tbody');
+  var sortBySelect = document.getElementById('leaderboard-sort-by');
+  var sortDirSelect = document.getElementById('leaderboard-sort-dir');
+  if (!sortBySelect || !sortDirSelect) return;
+
+  function parseCellValue(tr, colIndex) {
+    var cells = tr.querySelectorAll('td');
+    if (!cells[colIndex]) return colIndex === 0 ? '' : -Infinity;
+    var cell = cells[colIndex];
+    if (colIndex === 0) {
+      var nameEl = cell.querySelector('.model-name');
+      return nameEl ? (nameEl.textContent || '').trim() : (cell.textContent || '').trim();
+    }
+    var text = (cell.textContent || '').trim();
+    if (text === '—' || text === '' || cell.classList.contains('na')) return -Infinity;
+    var n = parseFloat(text.replace(/[^\d.-]/g, ''));
+    return isNaN(n) ? -Infinity : n;
+  }
+
+  function buildBlocks() {
+    var blocks = [];
+    var current = null;
+    for (var i = 0; i < tbody.children.length; i++) {
+      var tr = tbody.children[i];
+      if (tr.classList.contains('leaderboard-sep')) {
+        current = { sep: tr, rows: [] };
+        blocks.push(current);
+      } else if (current) {
+        current.rows.push(tr);
+      }
+    }
+    return blocks;
+  }
+
+  var initialBlocks = buildBlocks().map(function(b) {
+    return { sep: b.sep, rows: b.rows.slice() };
+  });
+
+  function sortBlocks(blocks, colIndex, dir) {
+    blocks.forEach(function(block) {
+      block.rows.sort(function(a, b) {
+        var va = parseCellValue(a, colIndex);
+        var vb = parseCellValue(b, colIndex);
+        if (colIndex === 0) {
+          var cmp = (va + '').localeCompare(vb + '');
+          return dir * (cmp < 0 ? -1 : cmp > 0 ? 1 : 0);
+        }
+        if (va < vb) return dir * (-1);
+        if (va > vb) return dir * 1;
+        return 0;
+      });
+    });
+  }
+
+  function reappendRows(blocks) {
+    var fragment = document.createDocumentFragment();
+    blocks.forEach(function(block) {
+      fragment.appendChild(block.sep);
+      block.rows.forEach(function(tr) { fragment.appendChild(tr); });
+    });
+    while (tbody.firstChild) tbody.removeChild(tbody.firstChild);
+    tbody.appendChild(fragment);
+  }
+
+  function runSort() {
+    var val = sortBySelect.value;
+    if (val === '') return;
+    var colIndex = parseInt(val, 10);
+    var dir = sortDirSelect.value === 'desc' ? -1 : 1;
+    var blocks = buildBlocks();
+    sortBlocks(blocks, colIndex, dir);
+    reappendRows(blocks);
+  }
+
+  function resetOrder() {
+    reappendRows(initialBlocks);
+    sortBySelect.value = '';
+  }
+
+  sortBySelect.addEventListener('change', runSort);
+  sortDirSelect.addEventListener('change', runSort);
+  var resetBtn = document.getElementById('leaderboard-sort-reset');
+  if (resetBtn) resetBtn.addEventListener('click', resetOrder);
+})();
+</script>
 
 </body>
 </html>
