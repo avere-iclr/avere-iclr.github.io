@@ -21,6 +21,59 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
 
+  <style>
+    /* AVERE-specific: benchmark sample card */
+    .benchmark-sample-card { padding: 1rem; text-align: left; }
+    .benchmark-sample-card .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #111; }
+    .benchmark-sample-card video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .benchmark-sample-card .mcq-question { font-weight: 600; margin: 1rem 0 0.5rem; }
+    .benchmark-sample-card .mcq-options { list-style: none; margin: 0; padding: 0; }
+    .benchmark-sample-card .mcq-options li { padding: 0.35rem 0; padding-left: 1.25rem; position: relative; }
+    .benchmark-sample-card .mcq-options li::before { content: attr(data-opt); position: absolute; left: 0; font-weight: 600; color: #363636; }
+    /* Leaderboard – single table, aligned columns */
+    .leaderboard-card { padding: 0; background: #fff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04); overflow: hidden; border: 1px solid #e8eaed; }
+    .leaderboard-table { width: 100%; margin: 0; border-collapse: collapse; font-size: 0.875rem; table-layout: fixed; }
+    .leaderboard-table th { background: #f8f9fa; padding: 0.75rem 0.85rem; font-weight: 700; color: #3c4043; border: none; border-bottom: 2px solid #e8eaed; white-space: nowrap; font-size: 0.95rem; letter-spacing: 0.02em; }
+    .leaderboard-table .model-cell { width: 22%; }
+    .leaderboard-table th.num, .leaderboard-table td.num { width: 13%; }
+    .leaderboard-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #f1f3f4; vertical-align: middle; color: #202124; }
+    .leaderboard-table tbody tr:last-child td { border-bottom: none; }
+    .leaderboard-table tbody tr:hover:not(.ours) { background: #f8f9fa; }
+    .leaderboard-table .ours { background: linear-gradient(135deg, #e8f0fe 0%, #d2e3fc 100%); position: relative; box-shadow: inset 4px 0 0 #1a73e8; }
+    .leaderboard-table .ours td { border-bottom-color: #c2dbfc; font-weight: 600; }
+    .leaderboard-table .ours .model-cell .model-name { font-weight: 700; color: #1a73e8; }
+    .leaderboard-table .ours .num { color: #1a73e8; font-weight: 700; }
+    .leaderboard-table .ours .num.best { background: rgba(26, 115, 232, 0.12); border-radius: 4px; padding: 0.15em 0.35em; }
+    .leaderboard-table .model-cell { min-width: 160px; }
+    .leaderboard-table .model-cell .model-logo-wrap { display: inline-flex; align-items: center; gap: 0.6rem; }
+    .leaderboard-table .model-logo { width: 26px; height: 26px; border-radius: 6px; object-fit: contain; flex-shrink: 0; }
+    .leaderboard-table .model-logo-wrap.no-logo .model-logo { display: none; }
+    .leaderboard-table .model-logo-wrap .model-name { font-weight: 500; color: #202124; }
+    .leaderboard-table .na { color: #9aa0a6; }
+    .leaderboard-table .best { color: #1a73e8; font-weight: 700; }
+    .leaderboard-table .num { text-align: center; font-variant-numeric: tabular-nums; min-width: 3.2em; }
+    /* Section separator rows */
+    .leaderboard-table tr.leaderboard-sep td { padding: 0.65rem 0.85rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #3c4043; border-top: 2px solid #e8eaed; border-bottom: 1px solid #e8eaed; background: #f8f9fa; }
+    .leaderboard-table tr.leaderboard-sep:first-child td { border-top: none; }
+    .leaderboard-table tr.leaderboard-sep.sec-proprietary td { background: #f1f3f4; color: #5f6368; box-shadow: inset 4px 0 0 #5f6368; }
+    .leaderboard-table tr.leaderboard-sep.sec-vision td { background: #e3f2fd; color: #1e88e5; box-shadow: inset 4px 0 0 #1e88e5; }
+    .leaderboard-table tr.leaderboard-sep.sec-audio td { background: #e8f5e9; color: #2e7d32; box-shadow: inset 4px 0 0 #43a047; }
+    .leaderboard-table tr.leaderboard-sep.sec-omni td { background: #f3e5f5; color: #7b1fa2; box-shadow: inset 4px 0 0 #7b1fa2; }
+    @media (max-width: 768px) { .leaderboard-card { overflow-x: auto; } .leaderboard-table { font-size: 0.8rem; table-layout: auto; } .leaderboard-table th, .leaderboard-table td { padding: 0.5rem; } .leaderboard-table .model-cell, .leaderboard-table th.num, .leaderboard-table td.num { width: auto; } }
+    /* Model comparison */
+    .comparison-slide { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; padding: 0.5rem; }
+    .comparison-video-wrap { flex: 0 0 320px; max-width: 100%; }
+    .comparison-video-wrap video { width: 100%; border-radius: 8px; background: #111; }
+    .comparison-generations { flex: 1; min-width: 280px; }
+    .comparison-gen-item { padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; border: 1px solid #e0e0e0; background: #fafafa; }
+    .comparison-gen-item.avere-highlight { border-color: #3273dc; background: #e8f4fd; box-shadow: 0 0 0 2px rgba(50,115,220,0.2); }
+    .comparison-gen-item .model-name { font-weight: 600; margin-bottom: 0.25rem; font-size: 0.95rem; }
+    .comparison-gen-item .gen-text { color: #363636; font-size: 0.9rem; line-height: 1.4; }
+    @media (max-width: 768px) { .comparison-slide { flex-direction: column; } .comparison-video-wrap { flex: 1 1 100%; } }
+    .benchmark-carousel, .comparison-carousel { overflow: hidden; }
+    .benchmark-carousel .item, .comparison-carousel .item { margin: 0 0.5rem; overflow: hidden; border: 1px solid #e0e0e0; border-radius: 10px; padding: 0; background: #fff; }
+  </style>
+
   <!-- JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -37,6 +90,14 @@
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <a href="https://face-llava.github.io/" class="navbar-item" target="_blank" rel="noopener">
+        <span class="icon"><i class="fas fa-external-link-alt"></i></span>
+        <span><strong>Authors' Previous Projects</strong> &mdash; Face-LLaVA</span>
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -190,6 +251,330 @@
   </div>
 </section>
 
+<!-- EmoReAlM Benchmark Samples (video + MCQ) -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">EmoReAlM Benchmark Samples</h2>
+    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Each sample: audiovisual clip with associated multiple-choice question. Add your videos under <code>static/videos/</code> (e.g. sample1.mp4, sample2.mp4).</p>
+    <div id="benchmark-carousel" class="carousel benchmark-carousel">
+      <div class="item">
+        <div class="benchmark-sample-card">
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata" poster="">
+              <source src="static/videos/sample1.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="mcq-question">What is the dominant emotion conveyed in this clip?</p>
+          <ul class="mcq-options">
+            <li data-opt="A.">Happiness</li>
+            <li data-opt="B.">Sadness</li>
+            <li data-opt="C.">Anger</li>
+            <li data-opt="D.">Surprise</li>
+          </ul>
+          <p class="is-size-7 has-text-grey" style="margin-top: 0.5rem;">Correct: A</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="benchmark-sample-card">
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata" poster="">
+              <source src="static/videos/sample2.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="mcq-question">Which modality (face vs. voice) best supports the emotion?</p>
+          <ul class="mcq-options">
+            <li data-opt="A.">Mostly facial expression</li>
+            <li data-opt="B.">Mostly vocal tone</li>
+            <li data-opt="C.">Both equally</li>
+            <li data-opt="D.">Unclear</li>
+          </ul>
+          <p class="is-size-7 has-text-grey" style="margin-top: 0.5rem;">Correct: C</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="benchmark-sample-card">
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata" poster="">
+              <source src="static/videos/sample3.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <p class="mcq-question">Does the model's response rely on spurious cues or the true audiovisual evidence?</p>
+          <ul class="mcq-options">
+            <li data-opt="A.">True evidence</li>
+            <li data-opt="B.">Spurious cues</li>
+            <li data-opt="C.">Mixed</li>
+            <li data-opt="D.">Neither</li>
+          </ul>
+          <p class="is-size-7 has-text-grey" style="margin-top: 0.5rem;">Correct: A</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Benchmark Leaderboard -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">EmoReAlM Leaderboard</h2>
+    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Accuracy (%) on EmoReAlM. &uarr; Higher is better. Our models (AVEm-DPO) highlighted.</p>
+    <div class="table-container">
+      <div class="leaderboard-card">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th class="model-cell">Model</th>
+              <th class="num">Reas. Basic (A)</th>
+              <th class="num">Reas. Basic (V)</th>
+              <th class="num">Mod. Agree.</th>
+              <th class="num">Stress (A)</th>
+              <th class="num">Stress (V)</th>
+              <th class="num">Avg. Acc.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="leaderboard-sep sec-proprietary">
+              <td colspan="7">Proprietary · I. Closed-source models</td>
+            </tr>
+            <tr>
+              <td class="model-cell">
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/gemini_logo.webp" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Gemini 2.5 Flash</span></span>
+              </td>
+              <td class="num">78.0</td><td class="num">88.9</td><td class="num">57.0</td><td class="num">63.5</td><td class="num">73.2</td><td class="num">72.1</td>
+            </tr>
+            <tr>
+              <td class="model-cell">
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/gemini_logo.webp" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Gemini 2.5 Pro</span></span>
+              </td>
+              <td class="num">72.7</td><td class="num">87.0</td><td class="num">54.7</td><td class="num">63.8</td><td class="num">73.1</td><td class="num">70.3</td>
+            </tr>
+            <tr class="leaderboard-sep sec-vision">
+              <td colspan="7">Vision only · II. Open-source video-only models</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA 3</span></span></td>
+              <td class="num na">—</td><td class="num">86.2</td><td class="num na">—</td><td class="num na">—</td><td class="num">64.9</td><td class="num na">—</td>
+            </tr>
+            <tr>
+              <td class="model-cell">
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen 2.5 VL</span></span>
+              </td>
+              <td class="num na">—</td><td class="num">88.1</td><td class="num na">—</td><td class="num na">—</td><td class="num">75.2</td><td class="num na">—</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/internvl_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">InternVL 3.5</span></span></td>
+              <td class="num na">—</td><td class="num">92.8</td><td class="num na">—</td><td class="num na">—</td><td class="num">68.3</td><td class="num na">—</td>
+            </tr>
+            <tr class="leaderboard-sep sec-audio">
+              <td colspan="7">Audio only · III. Open-source audio-only models</td>
+            </tr>
+            <tr>
+              <td class="model-cell">
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen 2 Audio</span></span>
+              </td>
+              <td class="num">56.6</td><td class="num na">—</td><td class="num na">—</td><td class="num">55.1</td><td class="num na">—</td><td class="num na">—</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/kimi_audio_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Kimi-Audio</span></span></td>
+              <td class="num">69.8</td><td class="num na">—</td><td class="num na">—</td><td class="num">54.0</td><td class="num na">—</td><td class="num na">—</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/audio_flamingo_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Audio Flamingo 3</span></span></td>
+              <td class="num">76.8</td><td class="num na">—</td><td class="num na">—</td><td class="num">52.6</td><td class="num na">—</td><td class="num na">—</td>
+            </tr>
+            <tr class="leaderboard-sep sec-omni">
+              <td colspan="7">Omni · IV. Open-source audiovisual (&ldquo;omni&rdquo;) models</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA</span></span></td>
+              <td class="num">21.7</td><td class="num">22.2</td><td class="num">34.1</td><td class="num">46.1</td><td class="num">48.8</td><td class="num">37.1</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/pandagpt_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">PandaGPT</span></span></td>
+              <td class="num">37.4</td><td class="num">35.7</td><td class="num">53.7</td><td class="num">45.8</td><td class="num">47.1</td><td class="num">44.0</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/one_llm_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">OneLLM</span></span></td>
+              <td class="num">42.0</td><td class="num">55.6</td><td class="num">54.8</td><td class="num">56.8</td><td class="num">62.0</td><td class="num">54.2</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA2</span></span></td>
+              <td class="num">63.1</td><td class="num">66.8</td><td class="num">52.6</td><td class="num">53.7</td><td class="num">59.4</td><td class="num">59.1</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">OLA</span></span></td>
+              <td class="num">63.2</td><td class="num">60.4</td><td class="num">51.7</td><td class="num">63.5</td><td class="num">62.3</td><td class="num">60.2</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VITA-1.5</span></span></td>
+              <td class="num">63.1</td><td class="num">84.3</td><td class="num">51.7</td><td class="num">63.0</td><td class="num">66.1</td><td class="num">65.6</td>
+            </tr>
+            <tr>
+              <td class="model-cell">
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen 2.5 Omni</span></span>
+              </td>
+              <td class="num">76.8</td><td class="num">89.2</td><td class="num">52.2</td><td class="num">64.0</td><td class="num">67.8</td><td class="num">70.0</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base</span></span></td>
+              <td class="num">69.2</td><td class="num">85.3</td><td class="num">51.4</td><td class="num">53.1</td><td class="num">66.4</td><td class="num">65.1</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Naive-DPO</span></span></td>
+              <td class="num">71.3</td><td class="num">85.9</td><td class="num">57.3</td><td class="num">55.6</td><td class="num">70.6</td><td class="num">68.1</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Vista-DPO&dagger;</span></span></td>
+              <td class="num">72.4</td><td class="num">87.8</td><td class="num">63.1</td><td class="num">74.1</td><td class="num">87.0</td><td class="num">76.9</td>
+            </tr>
+            <tr class="ours">
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + AVEm-DPO (Ours)</span></span></td>
+              <td class="num best">77.9</td><td class="num best">92.5</td><td class="num best">68.9</td><td class="num best">82.6</td><td class="num best">94.6</td><td class="num best">83.3</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA*</span></span></td>
+              <td class="num">64.8</td><td class="num">84.9</td><td class="num">51.2</td><td class="num">48.9</td><td class="num">69.1</td><td class="num">63.8</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + Naive-DPO</span></span></td>
+              <td class="num">67.2</td><td class="num">85.7</td><td class="num">56.1</td><td class="num">53.5</td><td class="num">71.9</td><td class="num">66.9</td>
+            </tr>
+            <tr>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + Vista-DPO&dagger;</span></span></td>
+              <td class="num">69.0</td><td class="num">86.9</td><td class="num">58.2</td><td class="num">69.2</td><td class="num">87.6</td><td class="num">74.2</td>
+            </tr>
+            <tr class="ours">
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + AVEm-DPO (Ours)</span></span></td>
+              <td class="num best">76.5</td><td class="num best">89.1</td><td class="num best">65.6</td><td class="num best">77.3</td><td class="num best">91.8</td><td class="num best">80.1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="has-text-centered is-size-7 has-text-grey mt-3">Reas. Basic = Reasoning Basic; Stress = Reasoning Stress Test; (A) = Audio, (V) = Visual. *Emot.-LLaMA: emotion-tuned base. &dagger;Vista-DPO: video-only DPO baseline.</p>
+  </div>
+</section>
+
+<!-- Results Tables from Paper -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Main results from the paper (replace with your actual tables/figures).</p>
+    <div class="table-container" style="margin-bottom: 2rem;">
+      <h3 class="title is-5">Zero-shot performance on DFEW, RAVDESS, EMER</h3>
+      <table class="table is-bordered is-striped">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>DFEW</th>
+            <th>RAVDESS</th>
+            <th>EMER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ours">
+            <td><strong>AVERE (Ours)</strong></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Baseline (e.g. LLaVA-AV)</td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-container">
+      <h3 class="title is-5">Ablation: effect of AVEm-DPO components</h3>
+      <table class="table is-bordered is-striped">
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th>EmoReAlM Overall</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Base MLLM</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>+ Preference (no reg.)</td>
+            <td>—</td>
+          </tr>
+          <tr class="ours">
+            <td><strong>+ AVEm-DPO (full)</strong></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Model Comparison: one video, multiple model generations (AVERE highlighted) -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Model Comparison</h2>
+    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Same audiovisual input, different model generations. <span class="tag is-info is-light">AVERE (Ours)</span> is highlighted.</p>
+    <div id="comparison-carousel" class="carousel comparison-carousel">
+      <div class="item">
+        <div class="comparison-slide">
+          <div class="comparison-video-wrap">
+            <video controls playsinline preload="metadata" style="width:100%; border-radius: 8px;">
+              <source src="static/videos/compare1.mp4" type="video/mp4">
+            </video>
+            <p class="is-size-7 has-text-grey mt-2">Sample 1</p>
+          </div>
+          <div class="comparison-generations">
+            <div class="comparison-gen-item avere-highlight">
+              <div class="model-name">AVERE (Ours)</div>
+              <div class="gen-text">The person shows clear signs of happiness, with a genuine smile and upbeat tone of voice. Both face and voice align with the emotion.</div>
+            </div>
+            <div class="comparison-gen-item">
+              <div class="model-name">LLaVA-AV</div>
+              <div class="gen-text">The clip appears to show a positive emotion. [Placeholder: replace with actual baseline generation.]</div>
+            </div>
+            <div class="comparison-gen-item">
+              <div class="model-name">Qwen-Audio</div>
+              <div class="gen-text">[Placeholder: replace with actual baseline generation.]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="comparison-slide">
+          <div class="comparison-video-wrap">
+            <video controls playsinline preload="metadata" style="width:100%; border-radius: 8px;">
+              <source src="static/videos/compare2.mp4" type="video/mp4">
+            </video>
+            <p class="is-size-7 has-text-grey mt-2">Sample 2</p>
+          </div>
+          <div class="comparison-generations">
+            <div class="comparison-gen-item avere-highlight">
+              <div class="model-name">AVERE (Ours)</div>
+              <div class="gen-text">[Placeholder: add AVERE generation for this sample.]</div>
+            </div>
+            <div class="comparison-gen-item">
+              <div class="model-name">Baseline A</div>
+              <div class="gen-text">[Placeholder: add baseline generation.]</div>
+            </div>
+            <div class="comparison-gen-item">
+              <div class="model-name">Baseline B</div>
+              <div class="gen-text">[Placeholder: add baseline generation.]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Coming Soon / Timeline Section -->
 <section class="section">
   <div class="container is-max-desktop">
@@ -218,7 +603,7 @@
   </div>
 </section>
 
-<!-- Contact / Footer -->
+<!-- Contact -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
@@ -229,12 +614,40 @@
             For questions about AVERE, EmoReAlM, or potential collaborations, please contact:
           </p>
           <p>
-            <b>Ashutosh Chaubey</b> &mdash;
+            <b><a href="https://ashutoshchaubey.in/">Ashutosh Chaubey</a></b> &mdash;
             <a href="mailto:achaubey@usc.edu">achaubey@usc.edu</a>
           </p>
+          <!-- <p>
+            <b><a href="https://www.ihp-lab.org/">Mohammad Soleymani</a></b> &mdash;
+            <a href="mailto:soleymani@usc.edu">soleymani@ict.usc.edu</a>
+          </p> -->
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@inproceedings{chaubey2026avere,
+  title={AVERE: Improving Audiovisual Emotion Reasoning with Preference Optimization},
+  author={Chaubey, Ashutosh and Pang, Jiacheng and Siniukov, Maksim and Soleymani, Mohammad},
+  booktitle={International Conference on Learning Representations (ICLR)},
+  year={2026},
+  url={https://openreview.net/forum?id=td682AAuPr}
+}</code></pre>
+  </div>
+</section>
+
+<!-- Acknowledgements -->
+<section class="section hero is-light" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">Acknowledgement</h2>
+    <p>
+      Research was sponsored by the Army Research Office and was accomplished under Cooperative Agreement Number W911NF-25-2-0040. Work was also in part supported by the National Science Foundation under Grant IIS-2211550 and the National Institute of Mental Health of the National Institutes of Health under Award Number R61MH135407. The views and conclusions contained in this document are those of the authors and should not be interpreted as representing the official policies, either expressed or implied, of the Army Research Office, NSF, NIH, or the U.S. Government. The U.S. Government is authorized to reproduce and distribute reprints for Government purposes notwithstanding any copyright notation herein.
+    </p>
   </div>
 </section>
 

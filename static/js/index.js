@@ -26,8 +26,29 @@ $(document).ready(function() {
       // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
       $(".navbar-burger").toggleClass("is-active");
       $(".navbar-menu").toggleClass("is-active");
-
     });
+
+    // AVERE: benchmark and comparison carousels show 1 slide
+    if (typeof bulmaCarousel !== 'undefined') {
+      bulmaCarousel.attach('#benchmark-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: true,
+        autoplay: false,
+        navigation: true,
+        pagination: true
+      });
+      bulmaCarousel.attach('#comparison-carousel', {
+        slidesToScroll: 1,
+        slidesToShow: 1,
+        loop: true,
+        infinite: true,
+        autoplay: false,
+        navigation: true,
+        pagination: true
+      });
+    }
 
     var options = {
 			slidesToScroll: 1,
@@ -36,10 +57,10 @@ $(document).ready(function() {
 			infinite: true,
 			autoplay: false,
 			autoplaySpeed: 3000,
-    }
+    };
 
-		// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
+    // Initialize other carousels (exclude benchmark and comparison)
+    var carousels = bulmaCarousel.attach('.carousel:not(#benchmark-carousel):not(#comparison-carousel)', options);
 
     // Loop on each carousel initialized
     for(var i = 0; i < carousels.length; i++) {
