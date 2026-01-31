@@ -112,6 +112,26 @@
     .results-table tr.results-sep.sec-ours td { background: #e0f2f1; color: #00695c; box-shadow: inset 4px 0 0 #00897b; }
     .results-table tr.results-sep.sec-emotion td { background: #fff3e0; color: #e65100; box-shadow: inset 4px 0 0 #f57c00; }
     @media (max-width: 768px) { .results-card { overflow-x: auto; } .results-table { font-size: 0.8rem; } .results-table th, .results-table td { padding: 0.5rem; } }
+    /* Qualitative examples: sample reveal + model boxes reveal on click */
+    .qual-sample { margin-bottom: 2rem; border: 1px solid #e8eaed; border-radius: 10px; overflow: hidden; background: #fff; }
+    .qual-sample > summary { padding: 0.85rem 1rem; font-weight: 700; font-size: 1.05rem; cursor: pointer; background: #f8f9fa; list-style: none; display: flex; align-items: center; gap: 0.5rem; }
+    .qual-sample > summary::-webkit-details-marker { display: none; }
+    .qual-sample > summary::before { content: '\25B8'; font-size: 0.8rem; transition: transform 0.2s; }
+    .qual-sample[open] > summary::before { transform: rotate(90deg); }
+    .qual-sample-content { padding: 1rem; border-top: 1px solid #e8eaed; }
+    .qual-video-wrap { margin-bottom: 1.25rem; display: flex; justify-content: center; }
+    .qual-video-wrap video { width: 100%; max-width: 640px; border-radius: 8px; background: #111; }
+    .qual-ground-truth { padding: 0.75rem 1rem; margin-bottom: 1rem; background: #f8f9fa; border-radius: 8px; font-size: 0.9rem; color: #363636; line-height: 1.45; }
+    .qual-model-box { margin-bottom: 0.5rem; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; background: #fafafa; }
+    .qual-model-box.avere-highlight { border-color: #3273dc; background: #e8f4fd; }
+    .qual-model-box > summary { padding: 0.6rem 0.85rem; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.6rem; font-weight: 600; font-size: 0.95rem; }
+    .qual-model-box > summary::-webkit-details-marker { display: none; }
+    .qual-model-box > summary::before { content: '\25B8'; font-size: 0.75rem; transition: transform 0.2s; flex-shrink: 0; }
+    .qual-model-box[open] > summary::before { transform: rotate(90deg); }
+    .qual-model-box .qual-model-head { display: inline-flex; align-items: center; gap: 0.6rem; }
+    .qual-model-box .qual-model-logo { width: 24px; height: 24px; border-radius: 6px; object-fit: contain; flex-shrink: 0; }
+    .qual-model-box .qual-model-head.no-logo .qual-model-logo { display: none; }
+    .qual-model-box .qual-gen-text { padding: 0.75rem 1rem; font-size: 0.9rem; color: #363636; line-height: 1.45; border-top: 1px solid #eee; }
   </style>
 
   <!-- JS -->
@@ -166,8 +186,8 @@
             AVERE: Improving Audiovisual Emotion Reasoning with Preference Optimization
           </h1>
 
-          <div class="is-size-4 publication-venue" style="margin-bottom: 1rem; text-align: center; width: 100%;">
-            <span style="color: #ff3860; font-weight: bold;">ICLR 2026</span>
+          <div class="is-size-3 publication-venue" style="margin-bottom: 1rem; text-align: center; width: 100%;">
+            <a href="https://iclr.cc/Conferences/2026" target="_blank" rel="noopener" style="color: #ff3860; font-weight: bold;">ICLR 2026</a>
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -185,8 +205,14 @@
             </span>
           </div>
 
+          <!-- <div class="is-size-4 publication-authors">
+            <span class="author-block">Institute for Creative Technologies</span>
+          </div> -->
           <div class="is-size-5 publication-authors">
-            <span class="author-block">University of Southern California</span>
+            <span class="author-block"><b>Institute for Creative Technologies</b></span>
+          </div>
+          <div class="has-text-centered" style="margin-top: 0.5rem;">
+            <img src="static/images/usc_logo.png" alt="University of Southern California" style="max-height: 48px; height: auto; width: auto;">
           </div>
 
           <!-- Links row -->
@@ -267,23 +293,13 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract (Preview)</h2>
+        <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Emotion understanding is essential for building socially intelligent agents.
-            Although recent multimodal large language models show promising results,
-            they often rely on <i>spurious audiovisual cues</i> or <i>text-driven hallucinations</i>.
-            AVERE tackles these challenges by:
-          </p>
-          <ul>
-            <li><b>EmoReAlM</b>: a benchmark evaluating cue–emotion associations,
-              hallucinations, and modality agreement;</li>
-            <li><b>AVEm-DPO</b>: a preference optimization method aligning model responses with
-              relevant audiovisual evidence and emotion-focused prompts.</li>
-          </ul>
-          <p>
-            Full results, implementation details, and benchmark release are
-            <b>coming soon</b>. Stay tuned!
+            Emotion understanding is essential for building socially intelligent agents. Although recent multimodal large language models (MLLMs) have shown strong performance on this task, two key challenges remain: (i) spurious associations between emotions and irrelevant audiovisual cues (reasoning errors) and (ii) hallucination of audiovisual cues (perception errors) driven by text priors in the language model backbone. 
+            To quantify and understand these issues, we introduce EmoReAlM, a benchmark designed to evaluate MLLMs for cue–emotion associations, hallucinations, and modality agreement. We then propose AVEm-DPO, a preference optimization technique that aligns model responses with both audiovisual inputs and emotion-centric queries. Specifically, we construct preferences over (i) responses exhibiting spurious associations or hallucinations and (ii) audiovisual input pairs guided by textual prompts. 
+            We also include a regularization term that penalizes reliance on text priors, thereby mitigating modality-specific cue hallucinations. 
+            Experimental results on DFEW, RAVDESS, and EMER demonstrate that our method significantly improves the performance of the reference baseline models (6-19% of relative performance) in zero-shot settings. By providing both a rigorous benchmark and a robust optimization framework, this work enables principled evaluation and improvement of MLLMs for emotion understanding and social AI.
           </p>
         </div>
       </div>
@@ -295,14 +311,14 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">EmoReAlM Benchmark Samples</h2>
-    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Each sample: audiovisual clip with associated multiple-choice question. Add your videos under <code>static/videos/</code> (e.g. sample1.mp4, sample2.mp4).</p>
+    <!-- <p class="has-text-centered" style="margin-bottom: 1.5rem;">Each sample: audiovisual clip with associated multiple-choice question. Add your videos under <code>static/videos/</code> (e.g. sample1.mp4, sample2.mp4).</p> -->
     <div id="benchmark-carousel" class="carousel benchmark-carousel">
       <div class="item">
         <div class="benchmark-sample-card">
           <p class="task-label">Task: Reasoning Basic (Audio)</p>
           <div class="video-wrap">
             <video controls playsinline preload="metadata" poster="">
-              <source src="static/videos/sample1.mp4" type="video/mp4">
+              <source src="static/videos/benchmark_samples/13186.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -321,7 +337,7 @@
           <p class="task-label">Task: Reasoning Basic (Visual)</p>
           <div class="video-wrap">
             <video controls playsinline preload="metadata" poster="">
-              <source src="static/videos/sample3.mp4" type="video/mp4">
+              <source src="static/videos/benchmark_samples/13260.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -340,7 +356,7 @@
           <p class="task-label">Task: Modality Agreement</p>
           <div class="video-wrap">
             <video controls playsinline preload="metadata" poster="">
-              <source src="static/videos/sample4.mp4" type="video/mp4">
+              <source src="static/videos/benchmark_samples/3116.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -357,7 +373,7 @@
           <p class="task-label">Task: Stress Test (Audio No Hallucination)</p>
           <div class="video-wrap">
             <video controls playsinline preload="metadata" poster="">
-              <source src="static/videos/sample5.mp4" type="video/mp4">
+              <source src="static/videos/benchmark_samples/339.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -374,7 +390,7 @@
           <p class="task-label">Task: Stress Test (Visual - Hallucination)</p>
           <div class="video-wrap">
             <video controls playsinline preload="metadata" poster="">
-              <source src="static/videos/sample6.mp4" type="video/mp4">
+              <source src="static/videos/benchmark_samples/771.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -561,9 +577,9 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Results</h2>
-    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Main results on DFEW, RAVDESS, MER2023, and EMER.</p>
+    <!-- <p class="has-text-centered" style="margin-bottom: 1.5rem;">Main results on DFEW, RAVDESS, MER2023, and EMER.</p> -->
     <div class="table-container" style="margin-bottom: 2rem;">
-      <h3 class="title is-5" style="margin-bottom: 0.75rem;">Zero-shot performance on DFEW, RAVDESS, MER2023, EMER</h3>
+      <h3 class="title is-5 has-text-centered" style="margin-bottom: 0.75rem;">Zero-shot performance on DFEW, RAVDESS, MER2023, EMER</h3>
       <div class="results-card">
         <table class="results-table">
           <thead>
@@ -799,8 +815,104 @@
   </div>
 </section>
 
+<!-- Qualitative Examples: video on top, model boxes below (reveal on click) -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Qualitative Examples</h2>
+    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Input video with ground truth compared to outputs from OLA, VITA-1.5, Qwen 2.5 Omni, VideoLLaMA 2, Emotion LLaMA, Our base, and + AVEm-DPO. Click a model to reveal its response. Our base and + AVEm-DPO are shown by default.</p>
+
+    <!-- Sample 1: revealed by default -->
+    <details class="qual-sample" open>
+      <summary>Sample 1</summary>
+      <div class="qual-sample-content">
+        <div class="qual-video-wrap">
+          <video controls playsinline preload="metadata" style="width:100%; border-radius: 8px; background: #111;">
+            <source src="static/videos/qual_samples/sample_00002329.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p class="is-size-7 has-text-weight-semibold mb-2">Ground truth:</p>
+        <div class="qual-ground-truth">In the video, the screen shows a young woman in an indoor environment, with a blurred background but some books can be seen stacked on the side. At the beginning of the video, she looks down with a gentle and friendly facial expression, with a noticeable smile that indicates she is happy at the moment. In the following scenes, she looks at the other person and engages in a conversation with them. In the audio, combined with the text content, the character is asking about the other person's whereabouts. In the text, the subtitle says, &ldquo;Where have you been these days? I thought you were transferred.&rdquo; This sentence can infer the emotional state of the female character. Based on the obvious smile and happy expression of the female character in the video clues, as well as the tone of the character asking about the other person's whereabouts in the audio clues, we can deduce that this sentence is a form of joking or teasing expression. The female character is likely playfully asking about the other person's whereabouts, expressing her care and curiosity towards them, which aligns with her overall friendly and happy demeanor.</div>
+        <p class="is-size-7 has-text-weight-semibold mb-2 mt-3">Model responses (click to expand):</p>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>OLA</span></span></summary>
+          <div class="qual-gen-text">The video features a young girl with long, dark hair, wearing a blue shirt and a white undershirt. She is standing in a dimly lit room, which appears to be an indoor setting, possibly a classroom or a study area. The background includes a stack of books on a table, suggesting an academic environment. The lighting is subdued, creating a somber and contemplative atmosphere. The girl's expression is neutral, and she seems to be engaged in a conversation or listening attentively. The overall mood of the scene is reflective and serious.</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VITA-1.5</span></span></summary>
+          <div class="qual-gen-text">The video features a young woman with dark hair tied back, wearing a blue collared shirt. She smiles and speaks directly to the camera, her expression shifting slightly as she delivers her message. The background is consistently dark, providing a stark contrast to her face and emphasizing her presence.</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Qwen 2.5 Omni</span></span></summary>
+          <div class="qual-gen-text">Well, in the video, there's a girl who seems to be in a bit of a state of surprise or maybe even a little bit of anger. Her eyes are wide open, and her mouth is slightly agape. It looks like she's just heard something unexpected or is reacting to someone's question. The way she's looking off to the side gives the impression that she's not really sure what to make of the situation. It's like she's caught off guard. What do you think might have happened to make her react like that?</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VideoLLaMA 2</span></span></summary>
+          <div class="qual-gen-text">In the dimly lit room, a young girl with a serious expression on her face is seen talking to someone. The atmosphere is tense and filled with anticipation as she speaks. The scene is from the movie &ldquo;Crazy Eyes&rdquo; where the girl's character is dealing with a difficult situation.</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Emotion LLaMA</span></span></summary>
+          <div class="qual-gen-text">The emotional label of the person in the video is &ldquo;happy&rdquo;. The clues in the video suggest that the person is happy because she is smiling and laughing while watching a video. The video also shows her holding a book, which could be a sign of her interest in learning or reading. Additionally, the person is surrounded by books, which could indicate that she values education and personal growth. Overall, the video portrays a positive and content person.</div>
+        </details>
+        <details class="qual-model-box avere-highlight" open>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Our base</span></span></summary>
+          <div class="qual-gen-text">The predicted emotion in the given video is happiness. The young woman can be seen smiling and her eyebrows are slightly raised showing playful eagerness. The dimly lit background contrasts the woman's expressions suggesting overall positivity in the atmosphere. The woman's speech enhances her emotional state with a happy and playful tone of voice.</div>
+        </details>
+        <details class="qual-model-box avere-highlight" open>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>+ AVEm-DPO (Ours)</span></span></summary>
+          <div class="qual-gen-text">The predicted emotion in the given video is happiness. The woman's facial expressions, including her smile and slightly raised eyebrows, suggest a positive emotional state. The tone of her voice is light and friendly, further reinforcing the feeling of happiness. The overall visual and auditory cues point towards a positive and happy interaction.</div>
+        </details>
+      </div>
+    </details>
+
+    <!-- Sample 2: hidden by default, reveal on click -->
+    <details class="qual-sample">
+      <summary>Sample 2 </summary>
+      <div class="qual-sample-content">
+        <div class="qual-video-wrap">
+          <video controls playsinline preload="metadata" style="width:100%; border-radius: 8px; background: #111;">
+            <source src="static/videos/qual_samples/sample_00002220.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p class="is-size-7 has-text-weight-semibold mb-2">Ground truth:</p>
+        <div class="qual-ground-truth">In the video, the screen shows a woman. In the video, she frowns and has a negative facial expression. During the conversation, she accompanies it with obvious head and hand movements, indicating that she is emotionally excited and seems to be emphasizing her point of view. Her gaze is directed towards the character below her, and her mouth moves frequently, suggesting that she is arguing with the other person. In the audio, the voice is urgent and the character's emotions are excited and anxious. In the text, the subtitle says, ""Why don't you go after it? Why are you sitting here and arguing with yourself?"" This sentence may be a woman's accusation or criticism of the character below her. Based on the video clues of the woman frowning, having a negative facial expression, accompanied by obvious head and hand movements, and looking at the character below her, it can be inferred that the woman is emotionally excited and seems to be arguing with the other person. At the same time, based on the audio clue describing the urgent and excited emotions, it can further confirm the woman's emotional state. Therefore, this sentence expresses the woman's dissatisfaction and anger, as she blames the other person for not taking action and just sitting in one place.</div>
+        <p class="is-size-7 has-text-weight-semibold mb-2 mt-3">Model responses (click to expand):</p>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>OLA</span></span></summary>
+          <div class="qual-gen-text">The video features a woman with long brown hair, wearing a light-colored sweater, who appears to be in a state of distress or contemplation. The background is blurred, suggesting an indoor setting with natural light coming through a window. The overall mood conveyed by the woman's expression and posture is one of concern or deep thought.</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VITA-1.5</span></span></summary>
+          <div class="qual-gen-text">The video features a woman with long brown hair, wearing a white sweater. She appears to be speaking with an emotional expression, her face conveying a sense of distress or sadness. Her eyes are slightly closed, and her mouth is moving as if she is talking. The background is blurred, suggesting an indoor setting.</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Qwen 2.5 Omni</span></span></summary>
+          <div class="qual-gen-text">Well, in the video, there's a woman who seems really sad. Her eyes are downcast, and she's not looking at the camera. Her mouth is slightly downturned, which gives off a sense of disappointment or sadness. It's like she's lost in her own thoughts, maybe feeling a bit down about something. What do you think might be making her feel this way?</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VideoLLaMA 2</span></span></summary>
+          <div class="qual-gen-text">The video shows a woman in various scenes, including crying and talking on the phone. The main source of sound in the video is the woman's voice as she talks to different people and expresses her emotions.</div>
+        </details>
+        <details class="qual-model-box">
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Emotion LLaMA</span></span></summary>
+          <div class="qual-gen-text">The emotional label of the person in the video is sad. The clues in the video suggest that the person is watching a video of a woman who is crying, and the woman is looking at the camera with tears in her eyes. This indicates that the person is feeling sad or empathetic towards the woman in the video, as they are watching her cry and experiencing her emotions. The person may be feeling a sense of sadness or empathy towards the woman, which is evident from their facial expressions and body language.</div>
+        </details>
+        <details class="qual-model-box avere-highlight" open>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Our base</span></span></summary>
+          <div class="qual-gen-text">The predicted emotion in the given video is anger. The woman's facial expressions shows furrowed brows and a tense mouth suggesting her angry state. The lines on her forehead suggest the intensity of her feelings. Her tone of voice is sharp and she speaks in a forceful manner further indicating her frustration and anger.</div>
+        </details>
+        <details class="qual-model-box avere-highlight" open>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>+ AVEm-DPO (Ours)</span></span></summary>
+          <div class="qual-gen-text">The predicted emotion in the given video is anger. The audio features a raised voice and sharp tone, indicating heightened emotional arousal. Visually, the person's facial expressions include furrowed brows, a tense mouth, and a direct, confrontational gaze, all of which are indicative of anger. The rapid speech and forceful delivery of the words further contribute to the perception of anger.</div>
+        </details>
+      </div>
+    </details>
+  </div>
+</section>
+
 <!-- Model Comparison: one video, multiple model generations (AVERE highlighted) -->
-<section class="section hero is-light">
+<!-- <section class="section hero is-light">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Model Comparison</h2>
     <p class="has-text-centered" style="margin-bottom: 1.5rem;">Same audiovisual input, different model generations. <span class="tag is-info is-light">AVERE (Ours)</span> is highlighted.</p>
@@ -855,7 +967,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- Coming Soon / Timeline Section -->
 <section class="section">
