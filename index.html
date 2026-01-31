@@ -22,6 +22,10 @@
   <link rel="stylesheet" href="./static/css/index.css">
 
   <style>
+    /* Navbar: center Authors' Previous Projects dropdown and highlight */
+    .navbar-menu.navbar-menu-centered { justify-content: center; }
+    .navbar .navbar-item.authors-projects-trigger.navbar-link { background: rgba(255, 56, 96, 0.12); color: #ff3860; font-weight: 700; border-radius: 8px; }
+    .navbar .navbar-item.authors-projects-trigger.navbar-link:hover { background: rgba(255, 56, 96, 0.2); color: #cc2d4d; }
     /* AVERE-specific: benchmark sample card */
     .benchmark-sample-card { padding: 1rem; text-align: left; }
     .benchmark-sample-card .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #111; }
@@ -151,12 +155,19 @@
       <span aria-hidden="true"></span>
     </a>
   </div>
-  <div class="navbar-menu">
-    <div class="navbar-end">
-      <a href="https://face-llava.github.io/" class="navbar-item" target="_blank" rel="noopener">
+  <div class="navbar-menu navbar-menu-centered">
+    <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link authors-projects-trigger">
         <span class="icon"><i class="fas fa-external-link-alt"></i></span>
-        <span><strong>Authors' Previous Projects</strong> &mdash; Face-LLaVA</span>
+        <span>Other Projects</span>
       </a>
+      <div class="navbar-dropdown is-right">
+        <a href="https://face-llava.github.io/" class="navbar-item" target="_blank" rel="noopener">
+          <span class="icon"><i class="fas fa-external-link-alt"></i></span>
+          Face-LLaVA (WACV 2026)
+        </a>
+        <!-- Add more project links here -->
+      </div>
     </div>
   </div>
 </nav>
@@ -293,7 +304,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3">📝 Abstract</h2>
         <div class="content has-text-justified">
           <p>
             Emotion understanding is essential for building socially intelligent agents. Although recent multimodal large language models (MLLMs) have shown strong performance on this task, two key challenges remain: (i) spurious associations between emotions and irrelevant audiovisual cues (reasoning errors) and (ii) hallucination of audiovisual cues (perception errors) driven by text priors in the language model backbone. 
@@ -310,7 +321,7 @@
 <!-- EmoReAlM Benchmark Samples (video + MCQ) -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">EmoReAlM Benchmark Samples</h2>
+    <h2 class="title is-3 has-text-centered">🎯 EmoReAlM Benchmark Samples</h2>
     <!-- <p class="has-text-centered" style="margin-bottom: 1.5rem;">Each sample: audiovisual clip with associated multiple-choice question. Add your videos under <code>static/videos/</code> (e.g. sample1.mp4, sample2.mp4).</p> -->
     <div id="benchmark-carousel" class="carousel benchmark-carousel">
       <div class="item">
@@ -409,7 +420,7 @@
 <!-- Benchmark Leaderboard -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">EmoReAlM Leaderboard</h2>
+    <h2 class="title is-3 has-text-centered">🏆 EmoReAlM Leaderboard</h2>
     <p class="has-text-centered" style="margin-bottom: 1.5rem;">Accuracy (%) on EmoReAlM. &uarr; Higher is better. Our models (AVEm-DPO) highlighted.</p>
     <div class="table-container">
       <div class="leaderboard-card">
@@ -531,19 +542,19 @@
               <td colspan="7">Our base · AVEm-DPO variants</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base</span></span></td>
               <td class="num">69.2</td><td class="num">85.3</td><td class="num">51.4</td><td class="num">53.1</td><td class="num">66.4</td><td class="num">65.1</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Naive-DPO</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Naive-DPO</span></span></td>
               <td class="num">71.3</td><td class="num">85.9</td><td class="num">57.3</td><td class="num">55.6</td><td class="num">70.6</td><td class="num">68.1</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Vista-DPO&dagger;</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Vista-DPO&dagger;</span></span></td>
               <td class="num">72.4</td><td class="num">87.8</td><td class="num">63.1</td><td class="num">74.1</td><td class="num">87.0</td><td class="num">76.9</td>
             </tr>
             <tr class="ours">
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + AVEm-DPO (Ours)</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + AVEm-DPO (Ours)</span></span></td>
               <td class="num best">77.9</td><td class="num best">92.5</td><td class="num best">68.9</td><td class="num best">82.6</td><td class="num best">94.6</td><td class="num best">83.3</td>
             </tr>
             <tr class="leaderboard-sep sec-emotion-llama">
@@ -562,7 +573,7 @@
               <td class="num">69.0</td><td class="num">86.9</td><td class="num">58.2</td><td class="num">69.2</td><td class="num">87.6</td><td class="num">74.2</td>
             </tr>
             <tr class="ours">
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + AVEm-DPO (Ours)</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + AVEm-DPO (Ours)</span></span></td>
               <td class="num best">76.5</td><td class="num best">89.1</td><td class="num best">65.6</td><td class="num best">77.3</td><td class="num best">91.8</td><td class="num best">80.1</td>
             </tr>
           </tbody>
@@ -576,10 +587,10 @@
 <!-- Results Tables from Paper -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Results</h2>
+    <h2 class="title is-3 has-text-centered">📊 Results</h2>
     <!-- <p class="has-text-centered" style="margin-bottom: 1.5rem;">Main results on DFEW, RAVDESS, MER2023, and EMER.</p> -->
     <div class="table-container" style="margin-bottom: 2rem;">
-      <h3 class="title is-5 has-text-centered" style="margin-bottom: 0.75rem;">Zero-shot performance on DFEW, RAVDESS, MER2023, EMER</h3>
+      <h3 class="title is-5 has-text-centered" style="margin-bottom: 0.75rem;">📈 Zero-shot performance on DFEW, RAVDESS, MER2023, EMER</h3>
       <div class="results-card">
         <table class="results-table">
           <thead>
@@ -702,7 +713,7 @@
             <td colspan="11">Our base · AVEm-DPO variants</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><strong>Our base</strong></span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><strong>Our base</strong></span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">56.78</td>
             <td class="num">60.14</td>
@@ -715,7 +726,7 @@
             <td class="num">5.19</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Naive-DPO</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Naive-DPO</span></span></td>
             <td class="model-mod"></td>
             <td class="num">55.67</td>
             <td class="num">59.90</td>
@@ -728,7 +739,7 @@
             <td class="num">5.48</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Vista-DPO†</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Vista-DPO†</span></span></td>
             <td class="model-mod"></td>
             <td class="num">56.42</td>
             <td class="num">62.33</td>
@@ -741,7 +752,7 @@
             <td class="num">6.07</td>
           </tr>
           <tr class="ours">
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ AVEm-DPO</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ AVEm-DPO</span></span></td>
             <td class="model-mod"></td>
             <td class="num num-best">58.54</td>
             <td class="num num-best">64.24</td>
@@ -796,7 +807,7 @@
             <td class="num">6.31</td>
           </tr>
           <tr class="ours">
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ AVEm-DPO</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ AVEm-DPO</span></span></td>
             <td class="model-mod"></td>
             <td class="num num-best">57.06</td>
             <td class="num num-best">62.12</td>
@@ -818,7 +829,7 @@
 <!-- Qualitative Examples: video on top, model boxes below (reveal on click) -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Qualitative Examples</h2>
+    <h2 class="title is-3 has-text-centered">✨ Qualitative Examples</h2>
     <p class="has-text-centered" style="margin-bottom: 1.5rem;">Input video with ground truth compared to outputs from OLA, VITA-1.5, Qwen 2.5 Omni, VideoLLaMA 2, Emotion LLaMA, Our base, and + AVEm-DPO. Click a model to reveal its response. Our base and + AVEm-DPO are shown by default.</p>
 
     <!-- Sample 1: revealed by default -->
@@ -855,11 +866,11 @@
           <div class="qual-gen-text">The emotional label of the person in the video is &ldquo;happy&rdquo;. The clues in the video suggest that the person is happy because she is smiling and laughing while watching a video. The video also shows her holding a book, which could be a sign of her interest in learning or reading. Additionally, the person is surrounded by books, which could indicate that she values education and personal growth. Overall, the video portrays a positive and content person.</div>
         </details>
         <details class="qual-model-box avere-highlight" open>
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Our base</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Our base</span></span></summary>
           <div class="qual-gen-text">The predicted emotion in the given video is happiness. The young woman can be seen smiling and her eyebrows are slightly raised showing playful eagerness. The dimly lit background contrasts the woman's expressions suggesting overall positivity in the atmosphere. The woman's speech enhances her emotional state with a happy and playful tone of voice.</div>
         </details>
         <details class="qual-model-box avere-highlight" open>
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>+ AVEm-DPO (Ours)</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>+ AVEm-DPO (Ours)</span></span></summary>
           <div class="qual-gen-text">The predicted emotion in the given video is happiness. The woman's facial expressions, including her smile and slightly raised eyebrows, suggest a positive emotional state. The tone of her voice is light and friendly, further reinforcing the feeling of happiness. The overall visual and auditory cues point towards a positive and happy interaction.</div>
         </details>
       </div>
@@ -899,11 +910,11 @@
           <div class="qual-gen-text">The emotional label of the person in the video is sad. The clues in the video suggest that the person is watching a video of a woman who is crying, and the woman is looking at the camera with tears in her eyes. This indicates that the person is feeling sad or empathetic towards the woman in the video, as they are watching her cry and experiencing her emotions. The person may be feeling a sense of sadness or empathy towards the woman, which is evident from their facial expressions and body language.</div>
         </details>
         <details class="qual-model-box avere-highlight" open>
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Our base</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Our base</span></span></summary>
           <div class="qual-gen-text">The predicted emotion in the given video is anger. The woman's facial expressions shows furrowed brows and a tense mouth suggesting her angry state. The lines on her forehead suggest the intensity of her feelings. Her tone of voice is sharp and she speaks in a forceful manner further indicating her frustration and anger.</div>
         </details>
         <details class="qual-model-box avere-highlight" open>
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/avere_logo_cropped.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>+ AVEm-DPO (Ours)</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>+ AVEm-DPO (Ours)</span></span></summary>
           <div class="qual-gen-text">The predicted emotion in the given video is anger. The audio features a raised voice and sharp tone, indicating heightened emotional arousal. Visually, the person's facial expressions include furrowed brows, a tense mouth, and a direct, confrontational gaze, all of which are indicative of anger. The rapid speech and forceful delivery of the words further contribute to the perception of anger.</div>
         </details>
       </div>
@@ -914,7 +925,7 @@
 <!-- Model Comparison: one video, multiple model generations (AVERE highlighted) -->
 <!-- <section class="section hero is-light">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Model Comparison</h2>
+    <h2 class="title is-3 has-text-centered">🎬 Model Comparison</h2>
     <p class="has-text-centered" style="margin-bottom: 1.5rem;">Same audiovisual input, different model generations. <span class="tag is-info is-light">AVERE (Ours)</span> is highlighted.</p>
     <div id="comparison-carousel" class="carousel comparison-carousel">
       <div class="item">
@@ -974,7 +985,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-two-thirds has-text-centered">
-        <h2 class="title is-3">Project Resources</h2>
+        <h2 class="title is-3">📦 Project Resources</h2>
         <div class="content">
           <p>
             We are actively preparing the <b>codebase</b>, <b>benchmark release</b>,
@@ -1002,7 +1013,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-two-thirds has-text-centered">
-        <h2 class="title is-3">Contact</h2>
+        <h2 class="title is-3">💬 Contact</h2>
         <div class="content">
           <p>
             For questions about AVERE, EmoReAlM, or potential collaborations, please contact:
@@ -1024,7 +1035,7 @@
 <!-- BibTeX -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3">BibTeX</h2>
+    <h2 class="title is-3">📎 BibTeX</h2>
     <pre><code>@inproceedings{chaubey2026avere,
   title={AVERE: Improving Audiovisual Emotion Reasoning with Preference Optimization},
   author={Chaubey, Ashutosh and Pang, Jiacheng and Siniukov, Maksim and Soleymani, Mohammad},
@@ -1038,7 +1049,7 @@
 <!-- Acknowledgements -->
 <section class="section hero is-light" id="Acknowledgement">
   <div class="container is-max-desktop content">
-    <h2 class="title is-3">Acknowledgement</h2>
+    <h2 class="title is-3">🙏 Acknowledgement</h2>
     <p>
       Research was sponsored by the Army Research Office and was accomplished under Cooperative Agreement Number W911NF-25-2-0040. Work was also in part supported by the National Science Foundation under Grant IIS-2211550 and the National Institute of Mental Health of the National Institutes of Health under Award Number R61MH135407. The views and conclusions contained in this document are those of the authors and should not be interpreted as representing the official policies, either expressed or implied, of the Army Research Office, NSF, NIH, or the U.S. Government. The U.S. Government is authorized to reproduce and distribute reprints for Government purposes notwithstanding any copyright notation herein.
     </p>
