@@ -26,6 +26,23 @@
     .navbar-menu.navbar-menu-centered { justify-content: center; }
     .navbar .navbar-item.authors-projects-trigger.navbar-link { background: rgba(255, 56, 96, 0.12); color: #ff3860; font-weight: 700; border-radius: 8px; }
     .navbar .navbar-item.authors-projects-trigger.navbar-link:hover { background: rgba(255, 56, 96, 0.2); color: #cc2d4d; }
+    /* Publication link buttons – colorful with logos */
+    .publication-links { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; align-items: center; }
+    .publication-links .pub-btn { border: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 9999px; color: #fff; text-decoration: none; transition: transform 0.15s, box-shadow 0.15s; font-size: 0.95rem; }
+    .publication-links .pub-btn:hover:not(:disabled):not(.disabled) { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.25); }
+    .publication-links .pub-btn .pub-icon { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .publication-links .pub-btn .pub-icon img { height: 20px; width: auto; vertical-align: middle; }
+    .publication-links .pub-btn-arxiv { background: linear-gradient(135deg, #b31b1b 0%, #8b0000 100%); }
+    .publication-links .pub-btn-arxiv:hover { color: #fff; }
+    .publication-links .pub-btn-pdf { background: linear-gradient(135deg, #1a73e8 0%, #1557b0 100%); }
+    .publication-links .pub-btn-pdf:hover { color: #fff; }
+    .publication-links .pub-btn-code { background: linear-gradient(135deg, #ffd21e 0%, #f9ab00 100%); color: #1a1a1a; }
+    .publication-links .pub-btn-code:hover { color: #1a1a1a; }
+    .publication-links .pub-btn-data { background: linear-gradient(135deg, #7dd87d 0%, #22c55e 100%); color: #fff; }
+    .publication-links .pub-btn-data:hover { color: #fff; }
+    .publication-links .pub-btn-leaderboard { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+    .publication-links .pub-btn-leaderboard:hover { color: #fff; }
+    .publication-links .pub-btn.disabled { opacity: 0.8; cursor: not-allowed; pointer-events: none; }
     /* AVERE-specific: benchmark sample card */
     .benchmark-sample-card { padding: 1rem; text-align: left; }
     .benchmark-sample-card .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #111; }
@@ -62,6 +79,8 @@
     .leaderboard-table .model-logo { width: 26px; height: 26px; border-radius: 6px; object-fit: contain; flex-shrink: 0; }
     .leaderboard-table .model-logo-wrap.no-logo .model-logo { display: none; }
     .leaderboard-table .model-logo-wrap .model-name { font-weight: 500; color: #202124; }
+    .leaderboard-table .model-name a { color: #1a73e8; text-decoration: none; }
+    .leaderboard-table .model-name a:hover { text-decoration: underline; }
     .leaderboard-table .na { color: #9aa0a6; }
     .leaderboard-table .best { color: #1a73e8; font-weight: 700; }
     .leaderboard-table .num { text-align: center; font-variant-numeric: tabular-nums; min-width: 3.2em; }
@@ -228,47 +247,35 @@
           <div class="column has-text-centered" style="margin-top: 1rem;">
             <div class="publication-links">
 
-              <!-- OpenReview -->
-              <span class="link-block">
-                <a href="https://openreview.net/forum?id=td682AAuPr"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank">
-                  <span class="icon">
-                    <i class="ai ai-open-access"></i>
-                  </span>
-                  <span>OpenReview</span>
-                </a>
+              <!-- arXiv -->
+              <a href="https://arxiv.org/abs/2602.07054" class="pub-btn pub-btn-arxiv" target="_blank" rel="noopener">
+                <span class="pub-icon"><i class="ai ai-arxiv" style="font-size: 1.25rem;"></i></span>
+                <span>arXiv</span>
+              </a>
+
+              <!-- PDF (arXiv) -->
+              <a href="https://arxiv.org/pdf/2602.07054" class="pub-btn pub-btn-pdf" target="_blank" rel="noopener">
+                <span class="pub-icon"><i class="fas fa-file-pdf" style="font-size: 1.1rem;"></i></span>
+                <span>PDF</span>
+              </a>
+
+              <!-- Code (Coming soon) – Hugging Face -->
+              <span class="pub-btn pub-btn-code disabled">
+                <span class="pub-icon"><img src="static/images/hf-logo.png" alt="Hugging Face"></span>
+                <span>Code &mdash; Soon</span>
               </span>
 
-              <!-- PDF (OpenReview) -->
-              <span class="link-block">
-                <a href="https://openreview.net/pdf?id=td682AAuPr"
-                   class="external-link button is-normal is-rounded is-dark" target="_blank">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>PDF</span>
-                </a>
+              <!-- Data (Coming soon) – Hugging Face -->
+              <span class="pub-btn pub-btn-data disabled">
+                <span class="pub-icon"><img src="static/images/hf-logo.png" alt="Hugging Face"></span>
+                <span>Data &mdash; Soon</span>
               </span>
 
-              <!-- Code (Coming soon) -->
-              <span class="link-block">
-                <a class="external-link button is-normal is-rounded is-light" disabled>
-                  <span class="icon">
-                    <i class="fas fa-code"></i>
-                  </span>
-                  <span>Code &mdash; Coming Soon</span>
-                </a>
-              </span>
-
-              <!-- Data (Coming soon) -->
-              <span class="link-block">
-                <a class="external-link button is-normal is-rounded is-light" disabled>
-                  <span class="icon">
-                    <i class="fas fa-database"></i>
-                  </span>
-                  <span>Data &mdash; Coming Soon</span>
-                </a>
-              </span>
+              <!-- Leaderboard (internal) -->
+              <a href="#leaderboard" class="pub-btn pub-btn-leaderboard">
+                <span class="pub-icon"><i class="fas fa-trophy" style="font-size: 1.1rem;"></i></span>
+                <span>Leaderboard</span>
+              </a>
 
             </div>
           </div>
@@ -416,7 +423,7 @@
 </section>
 
 <!-- Benchmark Leaderboard -->
-<section class="section hero is-light">
+<section class="section hero is-light" id="leaderboard">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">🏆 EmoReAlM Leaderboard</h2>
     <p class="has-text-centered" style="margin-bottom: 1.5rem;">Accuracy (%) on EmoReAlM. &uarr; Higher is better. Our models (AVEm-DPO) highlighted.</p>
@@ -459,13 +466,13 @@
             </tr>
             <tr>
               <td class="model-cell">
-                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/gemini_logo.webp" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Gemini 2.5 Flash</span></span>
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/gemini_logo.webp" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-thinking-updates-march-2025/" target="_blank" rel="noopener">Gemini 2.5</a> Flash</span></span>
               </td>
               <td class="num">78.0</td><td class="num">88.9</td><td class="num">57.0</td><td class="num">63.5</td><td class="num">73.2</td><td class="num">72.1</td>
             </tr>
             <tr>
               <td class="model-cell">
-                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/gemini_logo.webp" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Gemini 2.5 Pro</span></span>
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/gemini_logo.webp" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-model-thinking-updates-march-2025/" target="_blank" rel="noopener">Gemini 2.5</a> Pro</span></span>
               </td>
               <td class="num">72.7</td><td class="num">87.0</td><td class="num">54.7</td><td class="num">63.8</td><td class="num">73.1</td><td class="num">70.3</td>
             </tr>
@@ -473,17 +480,17 @@
               <td colspan="7">Vision only · II. Open-source video-only models</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA 3</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/DAMO-NLP-SG/VideoLLaMA3" target="_blank" rel="noopener">VideoLLaMA 3</a></span></span></td>
               <td class="num na">—</td><td class="num">86.2</td><td class="num na">—</td><td class="num na">—</td><td class="num">64.9</td><td class="num na">—</td>
             </tr>
             <tr>
               <td class="model-cell">
-                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen 2.5 VL</span></span>
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://qwen.ai/blog?id=qwen2.5-vl" target="_blank" rel="noopener">Qwen 2.5 VL</a></span></span>
               </td>
               <td class="num na">—</td><td class="num">88.1</td><td class="num na">—</td><td class="num na">—</td><td class="num">75.2</td><td class="num na">—</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/internvl_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">InternVL 3.5</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/internvl_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://internvl.github.io/blog/2025-08-26-InternVL-3.5/" target="_blank" rel="noopener">InternVL 3.5</a></span></span></td>
               <td class="num na">—</td><td class="num">92.8</td><td class="num na">—</td><td class="num na">—</td><td class="num">68.3</td><td class="num na">—</td>
             </tr>
             <tr class="leaderboard-sep sec-audio">
@@ -491,48 +498,48 @@
             </tr>
             <tr>
               <td class="model-cell">
-                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen 2 Audio</span></span>
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/QwenLM/Qwen2-Audio" target="_blank" rel="noopener">Qwen 2 Audio</a></span></span>
               </td>
               <td class="num">56.6</td><td class="num na">—</td><td class="num na">—</td><td class="num">55.1</td><td class="num na">—</td><td class="num na">—</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/kimi_audio_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Kimi-Audio</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/kimi_audio_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/MoonshotAI/Kimi-Audio" target="_blank" rel="noopener">Kimi-Audio</a></span></span></td>
               <td class="num">69.8</td><td class="num na">—</td><td class="num na">—</td><td class="num">54.0</td><td class="num na">—</td><td class="num na">—</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/audio_flamingo_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Audio Flamingo 3</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/audio_flamingo_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://research.nvidia.com/labs/adlr/AF3/" target="_blank" rel="noopener">Audio Flamingo 3</a></span></span></td>
               <td class="num">76.8</td><td class="num na">—</td><td class="num na">—</td><td class="num">52.6</td><td class="num na">—</td><td class="num na">—</td>
             </tr>
             <tr class="leaderboard-sep sec-omni">
               <td colspan="7">Omni · IV. Open-source audiovisual (&ldquo;omni&rdquo;) models</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/DAMO-NLP-SG/Video-LLaMA" target="_blank" rel="noopener">VideoLLaMA</a></span></span></td>
               <td class="num">21.7</td><td class="num">22.2</td><td class="num">34.1</td><td class="num">46.1</td><td class="num">48.8</td><td class="num">37.1</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/pandagpt_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">PandaGPT</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/pandagpt_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/yxuansu/PandaGPT" target="_blank" rel="noopener">PandaGPT</a></span></span></td>
               <td class="num">37.4</td><td class="num">35.7</td><td class="num">53.7</td><td class="num">45.8</td><td class="num">47.1</td><td class="num">44.0</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/one_llm_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">OneLLM</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/one_llm_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/csuhan/OneLLM" target="_blank" rel="noopener">OneLLM</a></span></span></td>
               <td class="num">42.0</td><td class="num">55.6</td><td class="num">54.8</td><td class="num">56.8</td><td class="num">62.0</td><td class="num">54.2</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA2</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/DAMO-NLP-SG/VideoLLaMA2" target="_blank" rel="noopener">VideoLLaMA2</a></span></span></td>
               <td class="num">63.1</td><td class="num">66.8</td><td class="num">52.6</td><td class="num">53.7</td><td class="num">59.4</td><td class="num">59.1</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">OLA</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/Ola-Omni/Ola" target="_blank" rel="noopener">OLA</a></span></span></td>
               <td class="num">63.2</td><td class="num">60.4</td><td class="num">51.7</td><td class="num">63.5</td><td class="num">62.3</td><td class="num">60.2</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VITA-1.5</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/VITA-MLLM/VITA" target="_blank" rel="noopener">VITA-1.5</a></span></span></td>
               <td class="num">63.1</td><td class="num">84.3</td><td class="num">51.7</td><td class="num">63.0</td><td class="num">66.1</td><td class="num">65.6</td>
             </tr>
             <tr>
               <td class="model-cell">
-                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen 2.5 Omni</span></span>
+                <span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/QwenLM/Qwen2.5-Omni" target="_blank" rel="noopener">Qwen 2.5 Omni</a></span></span>
               </td>
               <td class="num">76.8</td><td class="num">89.2</td><td class="num">52.2</td><td class="num">64.0</td><td class="num">67.8</td><td class="num">70.0</td>
             </tr>
@@ -544,11 +551,11 @@
               <td class="num">69.2</td><td class="num">85.3</td><td class="num">51.4</td><td class="num">53.1</td><td class="num">66.4</td><td class="num">65.1</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Naive-DPO</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + <a href="https://arxiv.org/abs/2305.18290" target="_blank" rel="noopener">Naive-DPO</a></span></span></td>
               <td class="num">71.3</td><td class="num">85.9</td><td class="num">57.3</td><td class="num">55.6</td><td class="num">70.6</td><td class="num">68.1</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + Vista-DPO&dagger;</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Our base + <a href="https://github.com/HaroldChen19/VistaDPO" target="_blank" rel="noopener">Vista-DPO</a>&dagger;</span></span></td>
               <td class="num">72.4</td><td class="num">87.8</td><td class="num">63.1</td><td class="num">74.1</td><td class="num">87.0</td><td class="num">76.9</td>
             </tr>
             <tr class="ours">
@@ -563,11 +570,11 @@
               <td class="num">64.8</td><td class="num">84.9</td><td class="num">51.2</td><td class="num">48.9</td><td class="num">69.1</td><td class="num">63.8</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + Naive-DPO</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + <a href="https://arxiv.org/abs/2305.18290" target="_blank" rel="noopener">Naive-DPO</a></span></span></td>
               <td class="num">67.2</td><td class="num">85.7</td><td class="num">56.1</td><td class="num">53.5</td><td class="num">71.9</td><td class="num">66.9</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + Vista-DPO&dagger;</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Emot.-LLaMA* + <a href="https://github.com/HaroldChen19/VistaDPO" target="_blank" rel="noopener">Vista-DPO</a>&dagger;</span></span></td>
               <td class="num">69.0</td><td class="num">86.9</td><td class="num">58.2</td><td class="num">69.2</td><td class="num">87.6</td><td class="num">74.2</td>
             </tr>
             <tr class="ours">
@@ -578,7 +585,7 @@
         </table>
       </div>
     </div>
-    <p class="has-text-centered is-size-7 has-text-grey mt-3">Reas. Basic = Reasoning Basic; Stress = Reasoning Stress Test; (A) = Audio, (V) = Visual. *Emot.-LLaMA: emotion-tuned base. &dagger;Vista-DPO: video-only DPO baseline.</p>
+    <p class="has-text-centered is-size-7 has-text-grey mt-3">Reas. Basic = Reasoning Basic; Stress = Reasoning Stress Test; (A) = Audio, (V) = Visual. *Emot.-LLaMA: emotion-tuned base. &dagger;<a href="https://github.com/HaroldChen19/VistaDPO" target="_blank" rel="noopener">Vista-DPO</a>: video-only DPO baseline.</p>
   </div>
 </section>
 
@@ -617,7 +624,7 @@
               <td colspan="11">Prior work · Baselines</td>
             </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VideoLLaMA 2</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/DAMO-NLP-SG/VideoLLaMA2" target="_blank" rel="noopener">VideoLLaMA 2</a></span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">43.65</td>
             <td class="num">48.66</td>
@@ -630,7 +637,7 @@
             <td class="num">4.23</td>
           </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">OLA</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/Ola-Omni/Ola" target="_blank" rel="noopener">OLA</a></span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">38.17</td>
             <td class="num">41.73</td>
@@ -643,7 +650,7 @@
             <td class="num">4.22</td>
           </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">VITA-1.5</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/VITA-MLLM/VITA" target="_blank" rel="noopener">VITA-1.5</a></span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">39.31</td>
             <td class="num">42.56</td>
@@ -656,7 +663,7 @@
             <td class="num">5.70</td>
           </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">Qwen-2.5 Omni</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/QwenLM/Qwen2.5-Omni" target="_blank" rel="noopener">Qwen-2.5 Omni</a></span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">46.94</td>
             <td class="num">54.34</td>
@@ -669,7 +676,7 @@
             <td class="num">6.21</td>
           </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">EmotionLLaMA</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/ZebangCheng/Emotion-LLaMA" target="_blank" rel="noopener">EmotionLLaMA</a></span></span></td>
             <td class="model-mod">A,V,T</td>
             <td class="num">45.59</td>
             <td class="num">59.37</td>
@@ -682,7 +689,7 @@
             <td class="num">5.26</td>
           </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">EmotionLLaMA‡</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://github.com/ZebangCheng/Emotion-LLaMA" target="_blank" rel="noopener">EmotionLLaMA</a>‡</span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">42.72</td>
             <td class="num">54.06</td>
@@ -695,7 +702,7 @@
             <td class="num">2.36</td>
           </tr>
             <tr>
-              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/mosear_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">MoSEAR</span></span></td>
+              <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/mosear_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><a href="https://arxiv.org/abs/2508.01181" target="_blank" rel="noopener">MoSEAR</a></span></span></td>
             <td class="model-mod">A,V,T</td>
             <td class="num">44.48</td>
             <td class="num">56.60</td>
@@ -724,7 +731,7 @@
             <td class="num">5.19</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Naive-DPO</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ <a href="https://arxiv.org/abs/2305.18290" target="_blank" rel="noopener">Naive-DPO</a></span></span></td>
             <td class="model-mod"></td>
             <td class="num">55.67</td>
             <td class="num">59.90</td>
@@ -737,7 +744,7 @@
             <td class="num">5.48</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Vista-DPO†</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/avere_logo_small.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ <a href="https://github.com/HaroldChen19/VistaDPO" target="_blank" rel="noopener">Vista-DPO</a>†</span></span></td>
             <td class="model-mod"></td>
             <td class="num">56.42</td>
             <td class="num">62.33</td>
@@ -766,7 +773,7 @@
             <td colspan="11">EmotionLLaMA* · AVEm-DPO variants</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><strong>EmotionLLaMA*</strong></span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name"><strong><a href="https://github.com/ZebangCheng/Emotion-LLaMA" target="_blank" rel="noopener">EmotionLLaMA</a>*</strong></span></span></td>
             <td class="model-mod">A,V</td>
             <td class="num">54.89</td>
             <td class="num">58.26</td>
@@ -779,7 +786,7 @@
             <td class="num">5.23</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Naive-DPO</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ <a href="https://arxiv.org/abs/2305.18290" target="_blank" rel="noopener">Naive-DPO</a></span></span></td>
             <td class="model-mod"></td>
             <td class="num">54.97</td>
             <td class="num">58.12</td>
@@ -792,7 +799,7 @@
             <td class="num">5.62</td>
           </tr>
           <tr>
-            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ Vista-DPO†</span></span></td>
+            <td class="model-cell"><span class="model-logo-wrap"><img class="model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span class="model-name">+ <a href="https://github.com/HaroldChen19/VistaDPO" target="_blank" rel="noopener">Vista-DPO</a>†</span></span></td>
             <td class="model-mod"></td>
             <td class="num">56.28</td>
             <td class="num">61.58</td>
@@ -828,7 +835,7 @@
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">✨ Qualitative Examples</h2>
-    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Input video with ground truth compared to outputs from OLA, VITA-1.5, Qwen 2.5 Omni, VideoLLaMA 2, Emotion LLaMA, Our base, and + AVEm-DPO. Click a model to reveal its response. Our base and + AVEm-DPO are shown by default.</p>
+    <p class="has-text-centered" style="margin-bottom: 1.5rem;">Input video with ground truth compared to outputs from <a href="https://github.com/Ola-Omni/Ola" target="_blank" rel="noopener">OLA</a>, <a href="https://github.com/VITA-MLLM/VITA" target="_blank" rel="noopener">VITA-1.5</a>, <a href="https://github.com/QwenLM/Qwen2.5-Omni" target="_blank" rel="noopener">Qwen 2.5 Omni</a>, <a href="https://github.com/DAMO-NLP-SG/VideoLLaMA2" target="_blank" rel="noopener">VideoLLaMA 2</a>, <a href="https://github.com/ZebangCheng/Emotion-LLaMA" target="_blank" rel="noopener">Emotion LLaMA</a>, Our base, and + AVEm-DPO. Click a model to reveal its response. Our base and + AVEm-DPO are shown by default.</p>
 
     <!-- Sample 1: revealed by default -->
     <details class="qual-sample" open>
@@ -844,23 +851,23 @@
         <div class="qual-ground-truth">In the video, the screen shows a young woman in an indoor environment, with a blurred background but some books can be seen stacked on the side. At the beginning of the video, she looks down with a gentle and friendly facial expression, with a noticeable smile that indicates she is happy at the moment. In the following scenes, she looks at the other person and engages in a conversation with them. In the audio, combined with the text content, the character is asking about the other person's whereabouts. In the text, the subtitle says, &ldquo;Where have you been these days? I thought you were transferred.&rdquo; This sentence can infer the emotional state of the female character. Based on the obvious smile and happy expression of the female character in the video clues, as well as the tone of the character asking about the other person's whereabouts in the audio clues, we can deduce that this sentence is a form of joking or teasing expression. The female character is likely playfully asking about the other person's whereabouts, expressing her care and curiosity towards them, which aligns with her overall friendly and happy demeanor.</div>
         <p class="is-size-7 has-text-weight-semibold mb-2 mt-3">Model responses (click to expand):</p>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>OLA</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/Ola-Omni/Ola" target="_blank" rel="noopener" onclick="event.stopPropagation()">OLA</a></span></span></summary>
           <div class="qual-gen-text">The video features a young girl with long, dark hair, wearing a blue shirt and a white undershirt. She is standing in a dimly lit room, which appears to be an indoor setting, possibly a classroom or a study area. The background includes a stack of books on a table, suggesting an academic environment. The lighting is subdued, creating a somber and contemplative atmosphere. The girl's expression is neutral, and she seems to be engaged in a conversation or listening attentively. The overall mood of the scene is reflective and serious.</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VITA-1.5</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/VITA-MLLM/VITA" target="_blank" rel="noopener" onclick="event.stopPropagation()">VITA-1.5</a></span></span></summary>
           <div class="qual-gen-text">The video features a young woman with dark hair tied back, wearing a blue collared shirt. She smiles and speaks directly to the camera, her expression shifting slightly as she delivers her message. The background is consistently dark, providing a stark contrast to her face and emphasizing her presence.</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Qwen 2.5 Omni</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/QwenLM/Qwen2.5-Omni" target="_blank" rel="noopener" onclick="event.stopPropagation()">Qwen 2.5 Omni</a></span></span></summary>
           <div class="qual-gen-text">Well, in the video, there's a girl who seems to be in a bit of a state of surprise or maybe even a little bit of anger. Her eyes are wide open, and her mouth is slightly agape. It looks like she's just heard something unexpected or is reacting to someone's question. The way she's looking off to the side gives the impression that she's not really sure what to make of the situation. It's like she's caught off guard. What do you think might have happened to make her react like that?</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VideoLLaMA 2</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/DAMO-NLP-SG/VideoLLaMA2" target="_blank" rel="noopener" onclick="event.stopPropagation()">VideoLLaMA 2</a></span></span></summary>
           <div class="qual-gen-text">In the dimly lit room, a young girl with a serious expression on her face is seen talking to someone. The atmosphere is tense and filled with anticipation as she speaks. The scene is from the movie &ldquo;Crazy Eyes&rdquo; where the girl's character is dealing with a difficult situation.</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Emotion LLaMA</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/ZebangCheng/Emotion-LLaMA" target="_blank" rel="noopener" onclick="event.stopPropagation()">Emotion LLaMA</a></span></span></summary>
           <div class="qual-gen-text">The emotional label of the person in the video is &ldquo;happy&rdquo;. The clues in the video suggest that the person is happy because she is smiling and laughing while watching a video. The video also shows her holding a book, which could be a sign of her interest in learning or reading. Additionally, the person is surrounded by books, which could indicate that she values education and personal growth. Overall, the video portrays a positive and content person.</div>
         </details>
         <details class="qual-model-box avere-highlight" open>
@@ -888,23 +895,23 @@
         <div class="qual-ground-truth">In the video, the screen shows a woman. In the video, she frowns and has a negative facial expression. During the conversation, she accompanies it with obvious head and hand movements, indicating that she is emotionally excited and seems to be emphasizing her point of view. Her gaze is directed towards the character below her, and her mouth moves frequently, suggesting that she is arguing with the other person. In the audio, the voice is urgent and the character's emotions are excited and anxious. In the text, the subtitle says, ""Why don't you go after it? Why are you sitting here and arguing with yourself?"" This sentence may be a woman's accusation or criticism of the character below her. Based on the video clues of the woman frowning, having a negative facial expression, accompanied by obvious head and hand movements, and looking at the character below her, it can be inferred that the woman is emotionally excited and seems to be arguing with the other person. At the same time, based on the audio clue describing the urgent and excited emotions, it can further confirm the woman's emotional state. Therefore, this sentence expresses the woman's dissatisfaction and anger, as she blames the other person for not taking action and just sitting in one place.</div>
         <p class="is-size-7 has-text-weight-semibold mb-2 mt-3">Model responses (click to expand):</p>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>OLA</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/ola_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/Ola-Omni/Ola" target="_blank" rel="noopener" onclick="event.stopPropagation()">OLA</a></span></span></summary>
           <div class="qual-gen-text">The video features a woman with long brown hair, wearing a light-colored sweater, who appears to be in a state of distress or contemplation. The background is blurred, suggesting an indoor setting with natural light coming through a window. The overall mood conveyed by the woman's expression and posture is one of concern or deep thought.</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VITA-1.5</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/vita_15_logo.jpg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/VITA-MLLM/VITA" target="_blank" rel="noopener" onclick="event.stopPropagation()">VITA-1.5</a></span></span></summary>
           <div class="qual-gen-text">The video features a woman with long brown hair, wearing a white sweater. She appears to be speaking with an emotional expression, her face conveying a sense of distress or sadness. Her eyes are slightly closed, and her mouth is moving as if she is talking. The background is blurred, suggesting an indoor setting.</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Qwen 2.5 Omni</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/qwen_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/QwenLM/Qwen2.5-Omni" target="_blank" rel="noopener" onclick="event.stopPropagation()">Qwen 2.5 Omni</a></span></span></summary>
           <div class="qual-gen-text">Well, in the video, there's a woman who seems really sad. Her eyes are downcast, and she's not looking at the camera. Her mouth is slightly downturned, which gives off a sense of disappointment or sadness. It's like she's lost in her own thoughts, maybe feeling a bit down about something. What do you think might be making her feel this way?</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>VideoLLaMA 2</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/video_llama_2_logo.png" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/DAMO-NLP-SG/VideoLLaMA2" target="_blank" rel="noopener" onclick="event.stopPropagation()">VideoLLaMA 2</a></span></span></summary>
           <div class="qual-gen-text">The video shows a woman in various scenes, including crying and talking on the phone. The main source of sound in the video is the woman's voice as she talks to different people and expresses her emotions.</div>
         </details>
         <details class="qual-model-box">
-          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span>Emotion LLaMA</span></span></summary>
+          <summary><span class="qual-model-head"><img class="qual-model-logo" src="static/images/model_logos/emotion_llama_logo.svg" alt="" onerror="this.parentElement.classList.add('no-logo')"><span><a href="https://github.com/ZebangCheng/Emotion-LLaMA" target="_blank" rel="noopener" onclick="event.stopPropagation()">Emotion LLaMA</a></span></span></summary>
           <div class="qual-gen-text">The emotional label of the person in the video is sad. The clues in the video suggest that the person is watching a video of a woman who is crying, and the woman is looking at the camera with tears in her eyes. This indicates that the person is feeling sad or empathetic towards the woman in the video, as they are watching her cry and experiencing her emotions. The person may be feeling a sense of sadness or empathy towards the woman, which is evident from their facial expressions and body language.</div>
         </details>
         <details class="qual-model-box avere-highlight" open>
